@@ -1,9 +1,11 @@
-target/*
+.gradle
+build/*
 .settings/*
 .classpath
 .project
 .idea
 *.iml
+target/*
 /target
 .sts4-cache/
 .vscode/*

@@ -1,4 +1,4 @@
-# Spring PetClinic Sample Application built with Spring Data JDBC
+# Maven to Gradle
 
 This is a branch of the official [Spring PetClinic](https://github.com/spring-projects/spring-petclinic) application with domain & persistence layer built with [Spring Data JDBC](https://projects.spring.io/spring-data-jdbc/) instead of [Spring Data JPA](https://projects.spring.io/spring-data-jpa/).
 
