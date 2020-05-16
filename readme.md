@@ -45,7 +45,6 @@
 '''
 
 * 배포 시와 scale in/out 시 유실되는 트래픽이 없어야 한다.
-
   * 무중단 배포를 위해 Application 단에는, Deployment Strategy 를 RollingUpdate 를 기본으로 하되, maxSurge: 1 / maxUnavailable: 0 를 설정. 
   * 또한 readinessProbe 에 대한 요건은 없었기에 .spec.minReadySeconds 을 10초로 우선 설정. 
   * 상기 terminationGracePeriodSeconds 와 더불어 SIGTERM 발생시의 처리에 대한 Application 로직 작성. 
