@@ -60,7 +60,8 @@ USER 1000
   * Database 단에는, Statefulset 로 배포. 
 
 * 어플리케이션과 DB는 cluster domain을 이용하여 통신한다.
-
+  * 참고로 mysql database 는 namespace: db 에 배포하였음. 
+  
 ```
 # In application.properties
 spring.datasource.url=jdbc:mysql://mysql.db.svc.cluster.local:3306/petclinic
