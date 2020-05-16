@@ -33,10 +33,11 @@ springBoot {
 }
 
 docker {
+    dependsOn tasks.build
     name "jzwaylove/petclinic-mysql"
-    tags "${project.version}", "${BUILD_VERSION}"
-    files tasks.bootJar.outputs.files
-    buildArgs(['JAR_FILE': tasks.bootJar.outputs.files.singleFile.name])
+    tags "latest", "${BUILD_VERSION}"
+    files bootJar.archivePath
+    buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
 }
 
 repositories {
