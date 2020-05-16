@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: petclinic
+  namespace: default
+spec:
+  rules:
+  - host: petclinic.35.103.3.40.nip.io
+    http:
+      paths:
+      - backend:
+          serviceName: petclinic
+          servicePort: 8080
