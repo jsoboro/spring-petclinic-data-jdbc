@@ -1,5 +1,10 @@
 plugins {
     id 'org.springframework.boot' version '2.2.7.RELEASE'
+    id 'com.palantir.docker' version '0.25.0'
+}
+
+ext {
+    BUILD_VERSION = new Date().format("yyyyMMddHHmmss") 
 }
 
 apply plugin: 'java'
@@ -25,6 +30,13 @@ jar {
 
 springBoot {
    mainClassName = "org.springframework.samples.petclinic.PetClinicApplication"
+}
+
+docker {
+    name "jzwaylove/petclinic-mysql"
+    tags "${project.version}", "${BUILD_VERSION}"
+    files tasks.bootJar.outputs.files
+    buildArgs(['JAR_FILE': tasks.bootJar.outputs.files.singleFile.name])
 }
 
 repositories {

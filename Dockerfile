@@ -8,6 +8,7 @@ RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
 FROM adoptopenjdk:8-jdk-hotspot
+USER 1000
 COPY --from=builder build/libs/*.jar app.jar
 
 EXPOSE 8080
