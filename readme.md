@@ -40,7 +40,7 @@ $ kubectl apply -n default -f ./k8s/petclinic/petclinic-ingress.yaml
 logging.path=/logs
 ```
 ```
-### petclinic-deployment.yaml ###
+### k8s/petclinic/petclinic-deployment.yaml ###
         volumeMounts:
         - name: logs-volumes
           mountPath: /logs
@@ -54,7 +54,7 @@ logging.path=/logs
   * Deployment 내에 livenessProbe 추가, 이때 GET URL은 spring-boot-actuator 사용. 
 
 ```
-### petclinic-deployment.yaml ###
+### k8s/petclinic/petclinic-deployment.yaml ###
         livenessProbe:
           httpGet:
             path: /manage/health
@@ -66,7 +66,7 @@ logging.path=/logs
 * 종료 시 30초 이내에 프로세스가 종료되지 않으면 SIGKILL로 강제 종료 시킨다.
 
 ```
-### petclinic-deployment.yaml ###
+### k8s/petclinic/petclinic-deployment.yaml ###
 # default 값이 30 이나, 명시적으로 지정
       terminationGracePeriodSeconds: 30
 ```
@@ -78,7 +78,7 @@ logging.path=/logs
     * 참고: https://docs.spring.io/spring-boot/docs/2.3.0.BUILD-SNAPSHOT/reference/html/spring-boot-features.html#boot-features-graceful-shutdown 
 
 ```
-### petclinic-deployment.yaml ###
+### k8s/petclinic/petclinic-deployment.yaml ###
   minReadySeconds: 10
   strategy:
     rollingUpdate:
@@ -126,4 +126,4 @@ $ helm install nginx-ingress stable/nginx-ingress --set controller.publishServic
 * namespace는 default를 사용한다.
   * manifest 상에 별도로 namespace 명시해 주지 않으면, default namespace 인 default 에 생성된다. 
   * 하지만 요구사항을 명확히 하기위해 namespace 에 default 명시하였음. 
-  * petclinic-deployment.yaml, petclinic-ingress.yaml 참조. 
+  * k8s/petclinic/petclinic-deployment.yaml, k8s/petclinic/petclinic-ingress.yaml 참조. 
