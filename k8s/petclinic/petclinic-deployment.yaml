@@ -42,8 +42,14 @@ spec:
           protocol: TCP
         livenessProbe:
           httpGet:
-            path: /healthz
+            path: /manage/health
             port: 8080
           failureThreshold: 3
           periodSeconds: 10
+        volumeMounts:
+        - name: logs-volumes
+          mountPath: /logs
+      volumes:
+        - name: logs-volumes
+          emptyDir: {}
       terminationGracePeriodSeconds: 30
