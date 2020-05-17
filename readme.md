@@ -15,14 +15,14 @@
 
 # How to run
 
-* 본 과제는 kubernetes cluster 는 이미 구성되었다고 가정한다. 
+* 본 과제는 Kubernetes cluster 및 MySQL DB(namespace: db)는 이미 구성되었다고 가정한다. 
 
 ```
 # Service 와 Deployment 를 default 네임스페이스에 적용. 
 $ kubectl apply -n default -f ./k8s/petclinic/petclinic-deployment.yaml
 
 # Pod 생성 이후, Ingress 배포하여 기 생성된 Nginx Ingress Controller 와 연결하고 
-# Ingress host 에 설정한 URL 로 접속한다. 
+# Ingress host 에 설정한 URL 로 접속한다. ( http://petclinic.35.103.3.40.nip.io )
 $ kubectl apply -n default -f ./k8s/petclinic/petclinic-ingress.yaml
 ```
 
@@ -73,10 +73,19 @@ logging.path=/logs
 
 * 배포 시와 scale in/out 시 유실되는 트래픽이 없어야 한다.
   * 무중단 배포를 위해 Application 단에는, Deployment Strategy 를 RollingUpdate 를 기본으로 하되, maxSurge: 1 / maxUnavailable: 0 를 설정. 
-  * 또한 readinessProbe 에 대한 요건은 없었기에 .spec.minReadySeconds 을 10초로 우선 설정. 
+  * 또한 readinessProbe 에 대한 상세 요건은 없었기에 .spec.minReadySeconds 을 10초로 우선 설정. 
   * 상기 terminationGracePeriodSeconds 와 더불어 Graceful shutdown 기능 사용
     * 참고: https://docs.spring.io/spring-boot/docs/2.3.0.BUILD-SNAPSHOT/reference/html/spring-boot-features.html#boot-features-graceful-shutdown 
 
+```
+### petclinic-deployment.yaml ###
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+```
 ```
 ### application.properties ###
 # Tomcat
